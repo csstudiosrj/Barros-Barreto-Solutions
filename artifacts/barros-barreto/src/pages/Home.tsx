@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -7,7 +7,6 @@ import {
   FaInstagram, 
   FaWhatsapp, 
   FaGoogle, 
-  FaTools, 
   FaPhoneAlt, 
   FaMapMarkerAlt, 
   FaEnvelope,
@@ -16,22 +15,17 @@ import {
   FaCheckCircle,
   FaSnowflake,
   FaBoxOpen,
-  FaCogs
+  FaCogs,
+  FaThumbsUp
 } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast";
-
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-
-// Assuming we saved the images here from previous tools
-import heroImg from "@/assets/images/hero.jpg";
-import sealsImg from "@/assets/images/seals.jpg";
-import counterImg from "@/assets/images/counter.jpg";
+import logoSrc from "@assets/image_1774894865494.png";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Nome deve ter no mínimo 2 caracteres." }),
@@ -43,6 +37,7 @@ const formSchema = z.object({
 
 export default function Home() {
   const { toast } = useToast();
+  const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,127 +50,169 @@ export default function Home() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(_values: z.infer<typeof formSchema>) {
     toast({
       title: "Mensagem enviada com sucesso!",
       description: "Entraremos em contato em breve.",
     });
+    setSubmitted(true);
     form.reset();
+    setTimeout(() => setSubmitted(false), 6000);
   }
 
   const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: "easeOut" } }
   };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.18 } }
   };
 
+  const services = [
+    {
+      icon: <FaCogs className="w-10 h-10 text-blue-500" />,
+      title: "Borrachas de Geladeira",
+      desc: "Fabricação especializada de gaxetas e borrachas para geladeiras, freezers e câmaras frias de todas as marcas. Vedação perfeita que garante economia de energia.",
+      items: ["Alta durabilidade", "Sob medida", "Para todas as marcas"],
+    },
+    {
+      icon: <FaSnowflake className="w-10 h-10 text-blue-500" />,
+      title: "Balcões Refrigerados",
+      desc: "Peças, manutenção e serviços especializados para balcões refrigerados comerciais. Atendemos padarias, açougues, lanchonetes e supermercados.",
+      items: ["Peças de reposição", "Consertos ágeis", "Atendimento comercial"],
+    },
+    {
+      icon: <FaBoxOpen className="w-10 h-10 text-blue-500" />,
+      title: "Expositores",
+      desc: "Serviços e peças para expositores refrigerados. Diagnóstico preciso e componentes de qualidade para manter seus produtos sempre na temperatura certa.",
+      items: ["Diagnóstico preciso", "Componentes originais", "Suporte técnico"],
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
+
       {/* Floating WhatsApp Button */}
-      <a 
-        href="https://wa.me/5521922095754" 
-        target="_blank" 
+      <a
+        href="https://wa.me/5521922095754"
+        target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-xl hover:bg-green-600 hover:scale-110 transition-all duration-300"
+        data-testid="btn-whatsapp-float"
+        className="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 hover:scale-110 transition-all duration-300 flex items-center justify-center"
         aria-label="Contato via WhatsApp"
       >
-        <FaWhatsapp className="w-8 h-8" />
+        <FaWhatsapp className="w-7 h-7" />
       </a>
 
       {/* Navigation */}
-      <header className="bg-[#0A192F] text-white py-4 sticky top-0 z-40 shadow-md border-b border-slate-800">
+      <header className="bg-[#0B1F3A] text-white py-3 sticky top-0 z-40 shadow-lg">
         <div className="container mx-auto px-4 lg:px-8 flex justify-between items-center">
-          <div className="flex flex-col">
-            <h1 className="text-2xl font-black tracking-tight leading-tight">
-              BARROS BARRETO
-            </h1>
-            <span className="text-red-500 font-bold text-sm tracking-widest uppercase">REFRIGERAÇÃO</span>
+          {/* Logo — cropped from the Instagram print */}
+          <div className="flex items-center gap-3">
+            <div
+              className="w-[140px] h-[52px] overflow-hidden rounded"
+              style={{ position: "relative" }}
+            >
+              <img
+                src={logoSrc}
+                alt="Barros Barreto Refrigeração"
+                className="absolute"
+                style={{
+                  width: "390px",
+                  height: "auto",
+                  top: "-38px",
+                  left: "-12px",
+                  objectFit: "none",
+                }}
+              />
+            </div>
           </div>
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#servicos" className="hover:text-red-400 font-medium transition-colors">Serviços</a>
-            <a href="#avaliacoes" className="hover:text-red-400 font-medium transition-colors">Avaliações</a>
-            <a href="#contato" className="hover:text-red-400 font-medium transition-colors">Contato</a>
+
+          <nav className="hidden md:flex items-center space-x-8">
+            <a href="#servicos" className="hover:text-blue-400 font-medium transition-colors text-sm uppercase tracking-wide">Serviços</a>
+            <a href="#avaliacoes" className="hover:text-blue-400 font-medium transition-colors text-sm uppercase tracking-wide">Avaliações</a>
+            <a href="#contato" className="hover:text-blue-400 font-medium transition-colors text-sm uppercase tracking-wide">Contato</a>
             <a href="https://wa.me/5521922095754" target="_blank" rel="noopener noreferrer">
-              <Button className="bg-red-600 hover:bg-red-700 text-white font-bold px-6">
-                Fazer Orçamento
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2 text-sm">
+                Solicitar Orçamento
               </Button>
             </a>
-          </div>
+          </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 lg:pt-32 lg:pb-48 bg-[#0A192F] overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <img src={heroImg} alt="Equipamentos de refrigeração" className="w-full h-full object-cover" />
+      <section className="relative bg-[#0B1F3A] overflow-hidden">
+        {/* Background: Instagram post image as atmospheric background */}
+        <div className="absolute inset-0">
+          <img
+            src={logoSrc}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-center opacity-20"
+            style={{ filter: "blur(2px) saturate(0.5)" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B1F3A] via-[#0B1F3A]/95 to-[#0B1F3A]/60" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0A192F] via-[#0A192F]/90 to-transparent"></div>
-        
-        <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <motion.div 
+
+        <div className="container mx-auto px-4 lg:px-8 relative z-10 py-24 lg:py-36">
+          <motion.div
             initial="hidden"
             animate="visible"
-            variants={fadeIn}
+            variants={staggerContainer}
             className="max-w-3xl"
           >
-            <div className="flex items-center gap-2 mb-6">
-              <Badge className="bg-blue-600/20 text-blue-300 hover:bg-blue-600/30 border-blue-500/30">
-                <FaStar className="text-yellow-400 mr-2" /> 4.813 Avaliações no Google
-              </Badge>
-            </div>
-            <h2 className="text-5xl lg:text-7xl font-black text-white mb-6 leading-[1.1]">
-              A Referência em <span className="text-red-500">Refrigeração</span> no Rio de Janeiro.
-            </h2>
-            <p className="text-xl text-slate-300 mb-10 max-w-2xl leading-relaxed">
+            <motion.div variants={fadeIn} className="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+              <FaStar className="text-yellow-400" />
+              <span>4.813 Avaliações no Google</span>
+            </motion.div>
+
+            <motion.h2 variants={fadeIn} className="text-5xl lg:text-7xl font-black text-white mb-6 leading-[1.05]">
+              A Referência em{" "}
+              <span className="text-blue-400">Refrigeração</span>{" "}
+              no Rio de Janeiro.
+            </motion.h2>
+
+            <motion.p variants={fadeIn} className="text-xl text-slate-300 mb-10 max-w-2xl leading-relaxed">
               Especialistas em fabricação de borrachas para geladeiras, balcões refrigerados e expositores. Tradição e qualidade que o comércio de Bonsucesso e região confiam.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="https://wa.me/5521922095754" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold h-14 px-8 text-lg">
-                  Solicitar Orçamento via WhatsApp
+            </motion.p>
+
+            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
+              <a href="https://wa.me/5521922095754" target="_blank" rel="noopener noreferrer" data-testid="btn-orcamento-hero">
+                <Button size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold h-14 px-8 text-base gap-2">
+                  <FaWhatsapp className="w-5 h-5" /> Solicitar Orçamento via WhatsApp
                 </Button>
               </a>
-              <a href="tel:+552122095754">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto border-slate-600 text-white hover:bg-slate-800 h-14 px-8 text-lg">
-                  Ligue: (21) 2209-5754
+              <a href="tel:+552122095754" data-testid="link-phone-hero">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto border-slate-500 text-white hover:bg-slate-800 hover:text-white h-14 px-8 text-base gap-2">
+                  <FaPhoneAlt className="w-4 h-4" /> (21) 2209-5754
                 </Button>
               </a>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Trust Indicators */}
-      <section className="bg-white py-12 border-b border-slate-200 shadow-sm relative z-20 -mt-8 mx-4 lg:mx-auto max-w-6xl rounded-xl">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
-            <div className="flex flex-col items-center p-4">
-              <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4 text-blue-600">
-                <FaCogs className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Fabricação Própria</h3>
-              <p className="text-slate-600">Borrachas de alta durabilidade, sob medida para sua necessidade.</p>
+      {/* Trust Bar */}
+      <section className="bg-blue-600 text-white py-10">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-blue-500">
+            <div className="flex flex-col items-center pt-4 md:pt-0">
+              <FaCogs className="w-8 h-8 mb-3 opacity-80" />
+              <h3 className="text-lg font-bold mb-1">Fabricação Própria</h3>
+              <p className="text-blue-100 text-sm">Borrachas sob medida para qualquer modelo</p>
             </div>
-            <div className="flex flex-col items-center p-4">
-              <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4 text-blue-600">
-                <FaGoogle className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Mais de 4.800 Avaliações</h3>
-              <p className="text-slate-600">Confiança comprovada pelos nossos clientes no Google.</p>
+            <div className="flex flex-col items-center pt-6 md:pt-0">
+              <FaGoogle className="w-8 h-8 mb-3 opacity-80" />
+              <h3 className="text-lg font-bold mb-1">+4.800 Avaliações</h3>
+              <p className="text-blue-100 text-sm">Confiança comprovada pelos nossos clientes</p>
             </div>
-            <div className="flex flex-col items-center p-4">
-              <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4 text-blue-600">
-                <FaSnowflake className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Comercial & Residencial</h3>
-              <p className="text-slate-600">Atendemos de residências a grandes comércios e supermercados.</p>
+            <div className="flex flex-col items-center pt-6 md:pt-0">
+              <FaThumbsUp className="w-8 h-8 mb-3 opacity-80" />
+              <h3 className="text-lg font-bold mb-1">Comercial e Residencial</h3>
+              <p className="text-blue-100 text-sm">Atendemos desde residências a supermercados</p>
             </div>
           </div>
         </div>
@@ -185,176 +222,163 @@ export default function Home() {
       <section id="servicos" className="py-24 bg-slate-50">
         <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-[#0A192F] mb-4">Nossos Serviços</h2>
-            <div className="w-24 h-1 bg-red-500 mx-auto mb-6"></div>
+            <h2 className="text-4xl font-black text-[#0B1F3A] mb-4">Nossos Serviços</h2>
+            <div className="w-20 h-1.5 bg-blue-600 mx-auto mb-6 rounded-full" />
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Soluções completas em refrigeração para manter seu negócio funcionando com máxima eficiência.
             </p>
           </div>
 
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
-            {/* Service 1 */}
-            <motion.div variants={fadeIn}>
-              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-shadow overflow-hidden group">
-                <div className="h-48 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-[#0A192F]/20 group-hover:bg-transparent transition-colors z-10"></div>
-                  <img src={sealsImg} alt="Borrachas de Geladeira" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-[#0A192F] mb-3">Borrachas de Geladeira</h3>
-                  <p className="text-slate-600 mb-4">
-                    Fabricação especializada de borrachas para geladeiras, freezers e câmaras frias. Vedação perfeita que garante economia de energia.
-                  </p>
-                  <ul className="space-y-2 text-sm text-slate-700 font-medium">
-                    <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" /> Alta durabilidade</li>
-                    <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" /> Sob medida</li>
-                    <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" /> Para todas as marcas</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
+            {services.map((s) => (
+              <motion.div key={s.title} variants={fadeIn}>
+                <Card className="h-full border border-slate-200 shadow-md hover:shadow-xl transition-shadow duration-300 hover:-translate-y-1 hover:border-blue-200 bg-white">
+                  <CardContent className="p-8 flex flex-col h-full">
+                    <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6">
+                      {s.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-[#0B1F3A] mb-3">{s.title}</h3>
+                    <p className="text-slate-600 mb-5 text-sm leading-relaxed flex-1">{s.desc}</p>
+                    <ul className="space-y-2">
+                      {s.items.map((item) => (
+                        <li key={item} className="flex items-center text-sm text-slate-700 font-medium">
+                          <FaCheckCircle className="text-blue-500 mr-2 shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-            {/* Service 2 */}
-            <motion.div variants={fadeIn}>
-              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-shadow overflow-hidden group">
-                <div className="h-48 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-[#0A192F]/20 group-hover:bg-transparent transition-colors z-10"></div>
-                  <img src={counterImg} alt="Balcões Refrigerados" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-[#0A192F] mb-3">Balcões Refrigerados</h3>
-                  <p className="text-slate-600 mb-4">
-                    Manutenção, peças e serviços para balcões refrigerados comerciais. Essencial para padarias, açougues e lanchonetes.
-                  </p>
-                  <ul className="space-y-2 text-sm text-slate-700 font-medium">
-                    <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" /> Peças de reposição</li>
-                    <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" /> Consertos ágeis</li>
-                    <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" /> Atendimento comercial</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Service 3 */}
-            <motion.div variants={fadeIn}>
-              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-shadow overflow-hidden group">
-                <div className="h-48 bg-slate-200 flex items-center justify-center relative">
-                  <FaBoxOpen className="w-20 h-20 text-slate-400" />
-                </div>
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-[#0A192F] mb-3">Expositores</h3>
-                  <p className="text-slate-600 mb-4">
-                    Tudo o que você precisa para manter seus expositores refrigerados funcionando 100%, garantindo a qualidade dos seus produtos.
-                  </p>
-                  <ul className="space-y-2 text-sm text-slate-700 font-medium">
-                    <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" /> Diagnóstico preciso</li>
-                    <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" /> Componentes originais</li>
-                    <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" /> Suporte técnico</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
+      {/* CTA Banner */}
+      <section className="bg-[#0B1F3A] py-16">
+        <div className="container mx-auto px-4 text-center max-w-3xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+          >
+            <h2 className="text-3xl lg:text-4xl font-black text-white mb-4">
+              Precisa trocar a borracha da sua geladeira?
+            </h2>
+            <p className="text-slate-300 mb-8 text-lg">
+              Solicite seu orçamento agora. Atendemos toda a região metropolitana do Rio de Janeiro.
+            </p>
+            <a href="https://wa.me/5521922095754" target="_blank" rel="noopener noreferrer" data-testid="btn-orcamento-cta">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-14 px-10 text-base gap-2">
+                <FaWhatsapp className="w-5 h-5" /> Falar no WhatsApp
+              </Button>
+            </a>
           </motion.div>
         </div>
       </section>
 
       {/* Reviews Section */}
-      <section id="avaliacoes" className="py-24 bg-white border-y border-slate-200">
+      <section id="avaliacoes" className="py-24 bg-white">
         <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div>
-              <h2 className="text-4xl font-black text-[#0A192F] mb-4">O Que Dizem Nossos Clientes</h2>
-              <div className="w-24 h-1 bg-red-500 mb-6"></div>
-              <p className="text-lg text-slate-600 max-w-2xl">
-                Temos orgulho de construir relacionamentos duradouros com base na transparência e excelência técnica.
+              <h2 className="text-4xl font-black text-[#0B1F3A] mb-4">O Que Dizem Nossos Clientes</h2>
+              <div className="w-20 h-1.5 bg-blue-600 mb-6 rounded-full" />
+              <p className="text-lg text-slate-600 max-w-xl">
+                Mais de 4.800 clientes satisfeitos. Confira o que dizem sobre nosso atendimento e qualidade.
               </p>
             </div>
-            <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 flex items-center gap-4">
-              <div className="text-4xl font-black text-slate-900">4.8</div>
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex items-center gap-4 shrink-0">
+              <div className="text-5xl font-black text-[#0B1F3A]">4.8</div>
               <div>
-                <div className="flex text-yellow-400 mb-1">
-                  <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+                <div className="flex text-yellow-400 mb-1 text-lg">
+                  {[...Array(5)].map((_, i) => <FaStar key={i} />)}
                 </div>
-                <div className="text-sm font-medium text-slate-600">4.813 avaliações no Google</div>
+                <div className="text-sm font-semibold text-slate-500">4.813 avaliações no Google</div>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-slate-50 border-none shadow-md">
-              <CardContent className="p-8">
-                <div className="flex text-yellow-400 mb-4">
-                  <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                </div>
-                <p className="text-lg text-slate-800 italic mb-6">
-                  "Loja pequena mais tem de tudo"
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl">
-                    E
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">edmais machado</h4>
-                    <span className="text-sm text-slate-500">Local Guide</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-slate-50 border-none shadow-md">
-              <CardContent className="p-8">
-                <div className="flex text-yellow-400 mb-4">
-                  <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                </div>
-                <p className="text-lg text-slate-800 italic mb-6">
-                  "Recomendo atendimento ótimo"
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl">
-                    L
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">Luiz Roberto Vasconcellos</h4>
-                    <span className="text-sm text-slate-500">Cliente Google</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {[
+              { initial: "E", name: "Edmais Machado", text: "Loja pequena mais tem de tudo" },
+              { initial: "L", name: "Luiz Roberto Vasconcellos", text: "Recomendo atendimento ótimo" },
+            ].map((r) => (
+              <motion.div key={r.name} variants={fadeIn}>
+                <Card className="bg-slate-50 border border-slate-100 shadow-md">
+                  <CardContent className="p-8">
+                    <div className="flex text-yellow-400 mb-4 text-lg">
+                      {[...Array(5)].map((_, i) => <FaStar key={i} />)}
+                    </div>
+                    <p className="text-xl text-slate-800 italic mb-6 leading-relaxed">
+                      "{r.text}"
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        {r.initial}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900">{r.name}</h4>
+                        <div className="flex items-center gap-1 text-sm text-slate-400">
+                          <FaGoogle className="text-blue-500" />
+                          <span>Avaliação no Google</span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Contact & Location Section */}
+      {/* Contact & Location */}
       <section id="contato" className="py-24 bg-slate-50">
         <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            
-            {/* Contact Form */}
-            <div>
-              <h2 className="text-3xl font-black text-[#0A192F] mb-2">Fale Conosco</h2>
-              <p className="text-slate-600 mb-8">
-                Preencha o formulário abaixo ou entre em contato diretamente pelo WhatsApp para um atendimento mais rápido.
-              </p>
+          <div className="text-center mb-14">
+            <h2 className="text-4xl font-black text-[#0B1F3A] mb-4">Fale Conosco</h2>
+            <div className="w-20 h-1.5 bg-blue-600 mx-auto mb-4 rounded-full" />
+            <p className="text-slate-600 text-lg">Preencha o formulário ou entre em contato diretamente.</p>
+          </div>
 
-              <Card className="border-none shadow-xl bg-white">
-                <CardContent className="p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            {/* Contact Form */}
+            <Card className="border border-slate-200 shadow-xl bg-white">
+              <CardContent className="p-8">
+                {submitted ? (
+                  <div className="flex flex-col items-center justify-center py-16 text-center gap-4">
+                    <FaCheckCircle className="text-blue-500 w-16 h-16" />
+                    <h3 className="text-2xl font-bold text-[#0B1F3A]">Mensagem enviada!</h3>
+                    <p className="text-slate-600">Entraremos em contato em breve.</p>
+                  </div>
+                ) : (
                   <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <FormField
                           control={form.control}
                           name="name"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-slate-700 font-bold">Nome</FormLabel>
+                              <FormLabel className="font-bold text-slate-700">Nome</FormLabel>
                               <FormControl>
-                                <Input placeholder="Seu nome" className="bg-slate-50 border-slate-200 focus-visible:ring-blue-500" {...field} />
+                                <Input placeholder="Seu nome" data-testid="input-name" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -365,9 +389,9 @@ export default function Home() {
                           name="phone"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-slate-700 font-bold">Telefone / WhatsApp</FormLabel>
+                              <FormLabel className="font-bold text-slate-700">Telefone / WhatsApp</FormLabel>
                               <FormControl>
-                                <Input placeholder="(21) 90000-0000" className="bg-slate-50 border-slate-200 focus-visible:ring-blue-500" {...field} />
+                                <Input placeholder="(21) 90000-0000" data-testid="input-phone" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -380,9 +404,9 @@ export default function Home() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-slate-700 font-bold">E-mail</FormLabel>
+                            <FormLabel className="font-bold text-slate-700">E-mail</FormLabel>
                             <FormControl>
-                              <Input type="email" placeholder="seu@email.com" className="bg-slate-50 border-slate-200 focus-visible:ring-blue-500" {...field} />
+                              <Input type="email" placeholder="seu@email.com" data-testid="input-email" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -394,10 +418,10 @@ export default function Home() {
                         name="service"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-slate-700 font-bold">Serviço de Interesse</FormLabel>
+                            <FormLabel className="font-bold text-slate-700">Serviço de Interesse</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
-                                <SelectTrigger className="bg-slate-50 border-slate-200 focus-visible:ring-blue-500">
+                                <SelectTrigger data-testid="select-service">
                                   <SelectValue placeholder="Selecione o serviço" />
                                 </SelectTrigger>
                               </FormControl>
@@ -418,12 +442,13 @@ export default function Home() {
                         name="message"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-slate-700 font-bold">Mensagem</FormLabel>
+                            <FormLabel className="font-bold text-slate-700">Mensagem</FormLabel>
                             <FormControl>
-                              <Textarea 
-                                placeholder="Como podemos ajudar?" 
-                                className="min-h-[120px] bg-slate-50 border-slate-200 focus-visible:ring-blue-500 resize-none" 
-                                {...field} 
+                              <Textarea
+                                placeholder="Como podemos ajudar?"
+                                className="min-h-[120px] resize-none"
+                                data-testid="textarea-message"
+                                {...field}
                               />
                             </FormControl>
                             <FormMessage />
@@ -431,94 +456,115 @@ export default function Home() {
                         )}
                       />
 
-                      <Button type="submit" className="w-full bg-[#0A192F] hover:bg-blue-900 text-white font-bold h-12 text-lg">
+                      <Button
+                        type="submit"
+                        data-testid="btn-submit-form"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 text-base"
+                      >
                         Enviar Mensagem
                       </Button>
                     </form>
                   </Form>
-                </CardContent>
-              </Card>
-            </div>
+                )}
+              </CardContent>
+            </Card>
 
-            {/* Info & Location */}
-            <div className="flex flex-col justify-center">
-              <div className="bg-[#0A192F] text-white p-10 rounded-2xl shadow-xl">
-                <h3 className="text-2xl font-black mb-8 border-b border-slate-700 pb-4">Informações de Contato</h3>
-                
+            {/* Info Card */}
+            <div className="flex flex-col gap-6">
+              <div className="bg-[#0B1F3A] text-white p-8 rounded-2xl shadow-xl flex-1">
+                <h3 className="text-xl font-black mb-7 pb-5 border-b border-slate-700">Informações de Contato</h3>
                 <div className="space-y-6">
-                  <div className="flex items-start">
-                    <FaMapMarkerAlt className="w-6 h-6 text-red-500 mr-4 mt-1 shrink-0" />
-                    <div>
-                      <h4 className="font-bold text-lg mb-1">Endereço</h4>
-                      <p className="text-slate-300 leading-relaxed">
-                        R. Barros Barreto, 107 - Loja AeB<br />
-                        Bonsucesso, Rio de Janeiro - RJ<br />
-                        CEP: 21032-140
-                      </p>
+                  {[
+                    {
+                      icon: <FaMapMarkerAlt className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />,
+                      title: "Endereço",
+                      content: "R. Barros Barreto, 107 - Loja AeB\nBonsucesso, Rio de Janeiro - RJ\nCEP: 21032-140",
+                    },
+                    {
+                      icon: <FaPhoneAlt className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />,
+                      title: "Telefones",
+                      content: "(21) 2209-5754\n(21) 2280-7349",
+                    },
+                    {
+                      icon: <FaEnvelope className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />,
+                      title: "E-mail",
+                      content: "barrosbarretorefrigeracao@gmail.com",
+                    },
+                    {
+                      icon: <FaClock className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />,
+                      title: "Horário de Funcionamento",
+                      content: "Segunda a Sábado\nFecha às 18:00",
+                    },
+                  ].map((item) => (
+                    <div key={item.title} className="flex items-start gap-4">
+                      {item.icon}
+                      <div>
+                        <h4 className="font-bold mb-1">{item.title}</h4>
+                        <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line">{item.content}</p>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <FaPhoneAlt className="w-6 h-6 text-red-500 mr-4 mt-1 shrink-0" />
-                    <div>
-                      <h4 className="font-bold text-lg mb-1">Telefones</h4>
-                      <p className="text-slate-300">
-                        (21) 2209-5754<br />
-                        (21) 2280-7349
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <FaEnvelope className="w-6 h-6 text-red-500 mr-4 mt-1 shrink-0" />
-                    <div>
-                      <h4 className="font-bold text-lg mb-1">E-mail</h4>
-                      <p className="text-slate-300 break-all">
-                        barrosbarretorefrigeracao@gmail.com
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <FaClock className="w-6 h-6 text-red-500 mr-4 mt-1 shrink-0" />
-                    <div>
-                      <h4 className="font-bold text-lg mb-1">Horário de Funcionamento</h4>
-                      <p className="text-slate-300">
-                        Segunda a Sábado<br />
-                        Fechamento às 18:00
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
-                <div className="mt-10 pt-8 border-t border-slate-700 flex gap-4">
-                  <a href="https://instagram.com/barrosbarretorefrigeracao" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-500 transition-colors">
-                    <FaInstagram className="w-6 h-6" />
+                <div className="mt-8 pt-6 border-t border-slate-700 flex gap-3">
+                  <a
+                    href="https://instagram.com/barrosbarretorefrigeracao"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-11 h-11 rounded-full bg-slate-700 flex items-center justify-center hover:bg-blue-600 transition-colors"
+                    aria-label="Instagram"
+                    data-testid="link-instagram"
+                  >
+                    <FaInstagram className="w-5 h-5" />
                   </a>
-                  <a href="https://wa.me/5521922095754" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center hover:bg-green-500 transition-colors">
-                    <FaWhatsapp className="w-6 h-6" />
+                  <a
+                    href="https://wa.me/5521922095754"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-11 h-11 rounded-full bg-slate-700 flex items-center justify-center hover:bg-green-500 transition-colors"
+                    aria-label="WhatsApp"
+                    data-testid="link-whatsapp-info"
+                  >
+                    <FaWhatsapp className="w-5 h-5" />
                   </a>
                 </div>
               </div>
-            </div>
 
+              <a
+                href="https://maps.google.com/?q=R.+Barros+Barreto,+107,+Bonsucesso,+Rio+de+Janeiro"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="link-maps"
+                className="block bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-4 px-6 rounded-xl transition-colors text-sm"
+              >
+                <FaMapMarkerAlt className="inline mr-2" />
+                Ver no Google Maps
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#050C17] text-slate-400 py-12 border-t border-slate-800">
-        <div className="container mx-auto px-4 text-center">
-          <div className="mb-8">
-            <h2 className="text-2xl font-black text-white tracking-tight">BARROS BARRETO <span className="text-red-500">REFRIGERAÇÃO</span></h2>
-            <p className="mt-2 text-sm">A sua parceira de confiança em refrigeração comercial e residencial.</p>
+      <footer className="bg-[#060F1C] text-slate-400 py-10 border-t border-slate-800">
+        <div className="container mx-auto px-4 text-center max-w-4xl">
+          <div className="mb-6">
+            <div className="inline-flex items-center gap-1 mb-2">
+              <span className="text-xl font-black text-white tracking-tight">BARROS BARRETO</span>
+              <span className="text-xl font-black text-blue-400 tracking-tight ml-1">REFRIGERAÇÃO</span>
+            </div>
+            <p className="text-sm text-slate-500">A sua parceira de confiança em refrigeração comercial e residencial no Rio de Janeiro.</p>
           </div>
-          
-          <div className="flex flex-col md:flex-row justify-center items-center gap-4 text-sm mb-8">
+
+          <div className="border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-center items-center gap-2 text-xs">
             <span>&copy; {new Date().getFullYear()} Barros Barreto Refrigeração. Todos os direitos reservados.</span>
-            <span className="hidden md:inline text-slate-600">|</span>
-            <a href="mailto:cscomrj02@gmail.com" className="hover:text-white transition-colors flex items-center group">
-              Desenvolvido por <span className="text-white font-bold ml-1 group-hover:text-red-400 transition-colors">CS Studios</span>
+            <span className="hidden md:inline text-slate-700">|</span>
+            <a
+              href="mailto:cscomrj02@gmail.com"
+              data-testid="link-cs-studios"
+              className="hover:text-white transition-colors"
+            >
+              Desenvolvido por <span className="text-blue-400 font-semibold hover:text-blue-300">CS Studios</span>
             </a>
           </div>
         </div>
