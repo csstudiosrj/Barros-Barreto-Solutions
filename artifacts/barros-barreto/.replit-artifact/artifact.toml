@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Barros Barreto Refrigeração"
+version = "1.0.0"
+id = "artifacts/barros-barreto"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25103
+
+[services.development]
+run = "pnpm --filter @workspace/barros-barreto run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/barros-barreto", "run", "build" ]
+publicDir = "artifacts/barros-barreto/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25103"
+BASE_PATH = "/"
