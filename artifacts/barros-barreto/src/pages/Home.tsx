@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -25,7 +25,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
-import logoSrc from "@assets/image_1774894865494.png";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Nome deve ter no mínimo 2 caracteres." }),
@@ -109,26 +108,11 @@ export default function Home() {
       {/* Navigation */}
       <header className="bg-[#0B1F3A] text-white py-3 sticky top-0 z-40 shadow-lg">
         <div className="container mx-auto px-4 lg:px-8 flex justify-between items-center">
-          {/* Logo — cropped from the Instagram print */}
-          <div className="flex items-center gap-3">
-            <div
-              className="w-[140px] h-[52px] overflow-hidden rounded"
-              style={{ position: "relative" }}
-            >
-              <img
-                src={logoSrc}
-                alt="Barros Barreto Refrigeração"
-                className="absolute"
-                style={{
-                  width: "390px",
-                  height: "auto",
-                  top: "-38px",
-                  left: "-12px",
-                  objectFit: "none",
-                }}
-              />
-            </div>
-          </div>
+          {/* Logo */}
+          <a href="#" className="flex flex-col leading-none select-none">
+            <span className="text-white font-black text-xl tracking-tight">BARROS BARRETO</span>
+            <span className="text-blue-400 font-bold text-xs tracking-[0.22em] uppercase">Refrigeração</span>
+          </a>
 
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#servicos" className="hover:text-blue-400 font-medium transition-colors text-sm uppercase tracking-wide">Serviços</a>
@@ -145,17 +129,11 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative bg-[#0B1F3A] overflow-hidden">
-        {/* Background: Instagram post image as atmospheric background */}
-        <div className="absolute inset-0">
-          <img
-            src={logoSrc}
-            alt=""
-            aria-hidden="true"
-            className="w-full h-full object-cover object-center opacity-20"
-            style={{ filter: "blur(2px) saturate(0.5)" }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B1F3A] via-[#0B1F3A]/95 to-[#0B1F3A]/60" />
-        </div>
+        {/* Decorative background pattern */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: "radial-gradient(circle at 70% 50%, #3b82f6 0%, transparent 60%), radial-gradient(circle at 20% 80%, #1d4ed8 0%, transparent 50%)"
+        }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3A] via-[#0d2444] to-[#091830]" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10 py-24 lg:py-36">
           <motion.div
