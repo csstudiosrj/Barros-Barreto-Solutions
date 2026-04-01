@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barros Barreto Refrigeração | Peças e Ar Condicionado</title>
+    <title>Barros Barreto Refrigeração | Peças e Soluções Térmicas</title>
     
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -18,13 +18,13 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        impact: ['Bebas Neue', 'sans-serif'],
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        title: ['Syncopate', 'sans-serif'],
                     },
                     colors: {
-                        refriBlue: '#00468C', /* Azul Profundo */
-                        refriRed: '#E30613',  /* Vermelho Técnico */
-                        refriLight: '#F1F5F9'
+                        navy: '#001D3D',
+                        vibrantRed: '#FF0000',
+                        iceWhite: '#F8FAFC'
                     }
                 }
             }
@@ -32,240 +32,238 @@
     </script>
 
     <style>
-        .hero-section {
-            background: linear-gradient(rgba(0, 70, 140, 0.8), rgba(0, 70, 140, 0.4)), 
-                        url('https://images.unsplash.com/photo-1581092921461-eab62e92c731?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
+        /* Efeito de texto vazado premium */
+        .outline-text {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0, 29, 61, 0.2);
         }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 3px solid #00468C;
+        
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
-        .technical-card {
-            border-left: 5px solid #E30613;
-            transition: all 0.3s ease;
+
+        .hero-image-mask {
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
         }
-        .technical-card:hover {
-            transform: translateX(10px);
-            background: #00468C;
-            color: white !important;
-        }
-        .technical-card:hover p { color: #cbd5e1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #001D3D; }
     </style>
 </head>
-<body class="bg-white text-slate-800 font-sans overflow-x-hidden">
+<body class="bg-iceWhite text-navy font-sans overflow-x-hidden">
 
-    <!-- Navbar -->
-    <nav class="fixed w-full z-50 glass-nav py-3 transition-all duration-300">
+    <!-- Header -->
+    <header class="fixed w-full z-50 glass-header py-4">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <div class="flex flex-col">
-                <span class="font-impact text-3xl text-refriBlue leading-none tracking-tight">BARROS BARRETO</span>
-                <span class="font-bold text-xs text-refriRed tracking-[0.25em] uppercase">Refrigeração</span>
-            </div>
-
-            <div class="hidden md:flex gap-8 items-center text-xs font-bold uppercase tracking-widest text-slate-600">
-                <a href="#inicio" class="hover:text-refriBlue transition">Início</a>
-                <a href="#produtos" class="hover:text-refriBlue transition">Peças</a>
-                <a href="#contato" class="hover:text-refriBlue transition">Orçamento</a>
-            </div>
-
-            <a href="tel:2122095754" class="bg-refriBlue text-white px-5 py-2 rounded flex items-center gap-2 font-bold text-sm hover:bg-refriRed transition shadow-lg">
-                <i class="fas fa-phone-alt animate-pulse"></i> (21) 2209-5754
-            </a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="inicio" class="hero-section min-h-screen flex items-center pt-20 relative">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right" data-aos-duration="1000">
-                <div class="inline-block bg-refriRed text-white px-4 py-1 font-bold text-xs uppercase tracking-widest mb-6">
-                    Referência em Bonsucesso
-                </div>
-                <h1 class="text-6xl md:text-8xl font-impact text-white leading-none mb-6 drop-shadow-lg">
-                    SOLUÇÕES QUE <br><span class="text-white border-b-8 border-refriRed">RESFRIAM.</span>
-                </h1>
-                <p class="text-xl text-white/90 mb-10 font-light max-w-lg leading-relaxed">
-                    A maior variedade em peças para ar condicionado, geladeiras e sistemas de refrigeração industrial e residencial. 
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#contato" class="bg-white text-refriBlue px-8 py-4 font-bold hover:bg-refriRed hover:text-white transition-all shadow-2xl uppercase tracking-widest">
-                        Solicitar Peças
-                    </a>
-                    <div class="flex items-center gap-3 text-white px-4 border-l-2 border-refriRed">
-                        <span class="text-4xl font-bold italic">4.8</span>
-                        <div class="text-[10px] uppercase font-bold leading-tight">Avaliação <br> Google Business</div>
-                    </div>
-                </div>
+                <span class="font-title text-xl tracking-tighter leading-none">BARROS BARRETO</span>
+                <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-vibrantRed">Refrigeração</span>
             </div>
             
-            <div class="hidden md:block relative" data-aos="zoom-in" data-aos-delay="300">
-                <div class="bg-white/10 p-4 rounded-3xl backdrop-blur-md border border-white/20 shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1621905252507-b35220adcfba?q=80&w=2070&auto=format&fit=crop" alt="Ar Condicionado" class="rounded-2xl">
+            <div class="hidden md:flex gap-10 text-[10px] font-bold uppercase tracking-widest">
+                <a href="#sobre" class="hover:text-vibrantRed transition">A Loja</a>
+                <a href="#pecas" class="hover:text-vibrantRed transition">Peças</a>
+                <a href="#contato" class="hover:text-vibrantRed transition">Orçamento</a>
+            </div>
+
+            <a href="https://wa.me/552122095754" target="_blank" class="bg-navy text-white px-6 py-2 text-[10px] font-bold tracking-widest hover:bg-vibrantRed transition-all">
+                WHATSAPP
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center overflow-hidden bg-white">
+        <div class="absolute top-20 left-10 outline-text text-9xl font-title opacity-20 select-none hidden lg:block">
+            ICE COLD
+        </div>
+        
+        <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div data-aos="fade-right" data-aos-duration="1000">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="h-[1px] w-12 bg-vibrantRed"></span>
+                    <span class="text-vibrantRed font-bold text-xs tracking-[0.3em] uppercase">Bonsucesso, Rio de Janeiro</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-title tracking-tighter leading-none mb-8">
+                    O CLIMA <br> <span class="text-vibrantRed">SOB SEU</span> <br> CONTROLE.
+                </h1>
+                <p class="text-lg text-slate-500 max-w-md mb-10 leading-relaxed">
+                    Especialistas em componentes para refrigeração comercial e residencial. Peças originais das maiores marcas do mercado mundial.
+                </p>
+                <div class="flex items-center gap-8">
+                    <a href="#contato" class="bg-navy text-white px-10 py-5 font-bold text-xs tracking-[0.2em] hover:bg-vibrantRed transition-all">
+                        SOLICITAR COTAÇÃO
+                    </a>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-bold">4.8</span>
+                        <div class="flex text-vibrantRed text-[8px]">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative h-[600px] hidden lg:block" data-aos="fade-left" data-aos-duration="1200">
+                <div class="absolute inset-0 bg-navy hero-image-mask overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover opacity-80 hover:scale-110 transition duration-1000" alt="Refrigeração">
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-vibrantRed p-8 text-white font-title text-2xl">
+                    100% <br> ORIGINAL
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Diferenciais -->
-    <section class="py-20 bg-refriLight">
+    <!-- Stats Section -->
+    <section class="py-20 bg-navy text-white">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12">
+            <div class="text-center" data-aos="zoom-in">
+                <div class="text-4xl font-title mb-2 text-vibrantRed">4.8k</div>
+                <div class="text-[10px] uppercase tracking-widest opacity-60 font-bold">Avaliações Positivas</div>
+            </div>
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+                <div class="text-4xl font-title mb-2 text-vibrantRed">+15y</div>
+                <div class="text-[10px] uppercase tracking-widest opacity-60 font-bold">Anos de Mercado</div>
+            </div>
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                <div class="text-4xl font-title mb-2 text-vibrantRed">10k</div>
+                <div class="text-[10px] uppercase tracking-widest opacity-60 font-bold">Peças em Estoque</div>
+            </div>
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+                <div class="text-4xl font-title mb-2 text-vibrantRed">24h</div>
+                <div class="text-[10px] uppercase tracking-widest opacity-60 font-bold">Orçamento Rápido</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorias de Peças -->
+    <section id="pecas" class="py-32 bg-white">
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 technical-card shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-box-open text-3xl mb-4 text-refriBlue"></i>
-                    <h3 class="font-impact text-2xl mb-2 uppercase tracking-wide">Estoque Completo</h3>
-                    <p class="text-slate-500 text-sm">Trabalhamos com todas as marcas líderes: compressor, gás, placas e ferramentas.</p>
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <h2 class="text-5xl md:text-7xl font-title tracking-tighter leading-none" data-aos="fade-up">
+                    NOSSO <br> <span class="outline-text">ESTOQUE</span>
+                </h2>
+                <p class="text-slate-400 max-w-xs text-sm font-medium italic" data-aos="fade-left">
+                    "Loja pequena mas tem de tudo" — A maior variedade de Bonsucesso.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-1">
+                <!-- Card 1 -->
+                <div class="group relative h-[450px] overflow-hidden bg-navy" data-aos="fade-up">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-50 group-hover:scale-110 group-hover:opacity-30 transition duration-700">
+                    <div class="absolute inset-0 p-10 flex flex-col justify-end text-white">
+                        <span class="text-vibrantRed font-bold text-xs mb-2 uppercase tracking-widest">HVAC</span>
+                        <h3 class="text-3xl font-title mb-4">AR CONDICIONADO</h3>
+                        <p class="text-sm opacity-0 group-hover:opacity-100 transition duration-500 leading-relaxed">Compressores, placas, sensores e turbinas para todas as marcas.</p>
+                    </div>
                 </div>
-                <div class="bg-white p-8 technical-card shadow-sm" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-microchip text-3xl mb-4 text-refriBlue"></i>
-                    <h3 class="font-impact text-2xl mb-2 uppercase tracking-wide">Peças Originais</h3>
-                    <p class="text-slate-500 text-sm">Garantia de procedência em cada componente para o melhor rendimento do seu aparelho.</p>
+                <!-- Card 2 -->
+                <div class="group relative h-[450px] overflow-hidden bg-navy" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1590001158193-79ef94d4860e?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-50 group-hover:scale-110 group-hover:opacity-30 transition duration-700">
+                    <div class="absolute inset-0 p-10 flex flex-col justify-end text-white">
+                        <span class="text-vibrantRed font-bold text-xs mb-2 uppercase tracking-widest">Linha Branca</span>
+                        <h3 class="text-3xl font-title mb-4">GELADEIRAS</h3>
+                        <p class="text-sm opacity-0 group-hover:opacity-100 transition duration-500 leading-relaxed">Gás refrigerante, termostatos, borrachas e filtros secadores.</p>
+                    </div>
                 </div>
-                <div class="bg-white p-8 technical-card shadow-sm" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-user-gear text-3xl mb-4 text-refriBlue"></i>
-                    <h3 class="font-impact text-2xl mb-2 uppercase tracking-wide">Atendimento Técnico</h3>
-                    <p class="text-slate-500 text-sm">Nossa equipe entende do assunto para te orientar na escolha da peça exata.</p>
+                <!-- Card 3 -->
+                <div class="group relative h-[450px] overflow-hidden bg-navy" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-50 group-hover:scale-110 group-hover:opacity-30 transition duration-700">
+                    <div class="absolute inset-0 p-10 flex flex-col justify-end text-white">
+                        <span class="text-vibrantRed font-bold text-xs mb-2 uppercase tracking-widest">Workshop</span>
+                        <h3 class="text-3xl font-title mb-4">FERRAMENTAS</h3>
+                        <p class="text-sm opacity-0 group-hover:opacity-100 transition duration-500 leading-relaxed">Manifolds, bombas de vácuo e maçaricos profissionais.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Produtos/Serviços -->
-    <section id="produtos" class="py-24">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div data-aos="fade-right">
-                    <h2 class="text-5xl md:text-7xl font-impact text-refriBlue uppercase leading-none">Catálogo <br> <span class="text-slate-300">Profissional</span></h2>
-                </div>
-                <div class="bg-refriRed w-20 h-2 mb-2 hidden md:block"></div>
-            </div>
-
+    <!-- Instagram Grid -->
+    <section class="py-32 bg-iceWhite overflow-hidden">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-title mb-16 tracking-tighter" data-aos="fade-up">SIGA @BARROSBARRETOREFRIGERACAO</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="relative h-64 group overflow-hidden" data-aos="flip-left">
-                    <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=600&h=800&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-refriBlue/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
-                        <span class="text-white font-bold uppercase tracking-widest text-xs">Ar Condicionado</span>
-                    </div>
+                <div class="aspect-square bg-slate-200 overflow-hidden rounded-3xl shadow-xl" data-aos="zoom-in">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover">
                 </div>
-                <div class="relative h-64 group overflow-hidden" data-aos="flip-left" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1571175432291-019688a10173?w=600&h=800&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-refriBlue/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
-                        <span class="text-white font-bold uppercase tracking-widest text-xs">Ferramentas</span>
-                    </div>
+                <div class="aspect-square bg-slate-200 overflow-hidden rounded-3xl shadow-xl mt-8" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1621905252507-b35220adcfba?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover">
                 </div>
-                <div class="relative h-64 group overflow-hidden" data-aos="flip-left" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1594832284157-790138947656?w=600&h=800&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-refriBlue/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
-                        <span class="text-white font-bold uppercase tracking-widest text-xs">Gás Refri</span>
-                    </div>
+                <div class="aspect-square bg-slate-200 overflow-hidden rounded-3xl shadow-xl" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1581092921461-eab62e92c731?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover">
                 </div>
-                <div class="relative h-64 group overflow-hidden" data-aos="flip-left" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&h=800&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-refriBlue/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
-                        <span class="text-white font-bold uppercase tracking-widest text-xs">Acessórios</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Depoimentos e Instagram -->
-    <section class="py-24 bg-slate-900 text-white overflow-hidden">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-20">
-            <div data-aos="fade-right">
-                <h3 class="font-impact text-4xl mb-8 uppercase text-refriRed italic tracking-wide">O que dizem nossos clientes</h3>
-                <div class="space-y-6">
-                    <div class="bg-white/5 p-6 rounded-lg border-l-4 border-refriBlue">
-                        <p class="italic text-slate-300 mb-4">"Loja pequena mais tem de tudo. Encontrei a peça da minha geladeira na hora."</p>
-                        <span class="font-bold text-xs uppercase tracking-widest">— Edmais Machado</span>
-                    </div>
-                    <div class="bg-white/5 p-6 rounded-lg border-l-4 border-refriBlue">
-                        <p class="italic text-slate-300 mb-4">"Recomendo atendimento ótimo. Conhecimento técnico nota 10."</p>
-                        <span class="font-bold text-xs uppercase tracking-widest">— Luiz Roberto Vasconcellos</span>
-                    </div>
-                </div>
-                
-                <div class="mt-12 flex items-center gap-4">
-                    <i class="fab fa-instagram text-4xl text-refriRed"></i>
-                    <div>
-                        <p class="text-xs uppercase font-bold tracking-tighter opacity-50">Siga nosso Instagram</p>
-                        <a href="https://www.instagram.com/barrosbarretorefrigeracao/" target="_blank" class="text-xl font-bold hover:text-refriRed transition">@barrosbarretorefrigeracao</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4" data-aos="fade-left">
-                <div class="bg-white/5 p-2 rounded shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1615870308078-f0331006a86e?w=500&h=500&fit=crop" class="rounded opacity-80 hover:opacity-100 transition">
-                </div>
-                <div class="bg-white/5 p-2 rounded shadow-2xl mt-8">
-                    <img src="https://images.unsplash.com/photo-1545241047-6083a3684587?w=500&h=500&fit=crop" class="rounded opacity-80 hover:opacity-100 transition">
+                <div class="aspect-square bg-slate-200 overflow-hidden rounded-3xl shadow-xl mt-8" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contato & Mapa -->
-    <section id="contato" class="py-24 bg-white relative">
+    <section id="contato" class="py-32 bg-white">
         <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 bg-refriBlue rounded-[2rem] overflow-hidden shadow-2xl">
+            <div class="grid lg:grid-cols-2 gap-20 items-stretch">
                 
-                <!-- Formulário -->
-                <div class="p-12 md:p-20 text-white" data-aos="fade-right">
-                    <h2 class="font-impact text-5xl mb-4 uppercase tracking-tight">Fale com um Especialista</h2>
-                    <p class="text-blue-200 mb-10 text-sm">Mande sua dúvida ou lista de peças para orçamento rápido.</p>
+                <div data-aos="fade-right">
+                    <h2 class="text-5xl font-title tracking-tighter mb-12">FALE COM O <br> <span class="text-vibrantRed">ESPECIALISTA</span></h2>
                     
-                    <form action="https://formspree.io/f/mvzvrvzp" method="POST" class="space-y-6">
-                        <div class="border-b border-white/20 pb-2">
-                            <label class="block text-[10px] uppercase font-bold text-refriRed tracking-widest mb-1">Seu Nome</label>
-                            <input type="text" name="name" required class="w-full bg-transparent outline-none py-2 text-xl">
+                    <form action="https://formspree.io/f/mvzvrvzp" method="POST" class="space-y-8">
+                        <div class="relative">
+                            <input type="text" name="name" required class="w-full bg-transparent border-b-2 border-navy/10 py-4 focus:border-vibrantRed outline-none transition-all peer" placeholder=" ">
+                            <label class="absolute top-4 left-0 text-navy/40 pointer-events-none transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-vibrantRed peer-focus:font-bold uppercase tracking-widest">Seu Nome</label>
                         </div>
-                        <div class="border-b border-white/20 pb-2">
-                            <label class="block text-[10px] uppercase font-bold text-refriRed tracking-widest mb-1">WhatsApp / E-mail</label>
-                            <input type="text" name="contact" required class="w-full bg-transparent outline-none py-2 text-xl">
+                        <div class="relative">
+                            <input type="text" name="whatsapp" required class="w-full bg-transparent border-b-2 border-navy/10 py-4 focus:border-vibrantRed outline-none transition-all peer" placeholder=" ">
+                            <label class="absolute top-4 left-0 text-navy/40 pointer-events-none transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-vibrantRed peer-focus:font-bold uppercase tracking-widest">WhatsApp</label>
                         </div>
-                        <div class="border-b border-white/20 pb-2">
-                            <label class="block text-[10px] uppercase font-bold text-refriRed tracking-widest mb-1">Mensagem</label>
-                            <textarea name="message" rows="3" required class="w-full bg-transparent outline-none py-2 text-xl"></textarea>
+                        <div class="relative">
+                            <textarea name="message" rows="3" required class="w-full bg-transparent border-b-2 border-navy/10 py-4 focus:border-vibrantRed outline-none transition-all peer" placeholder=" "></textarea>
+                            <label class="absolute top-4 left-0 text-navy/40 pointer-events-none transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-vibrantRed peer-focus:font-bold uppercase tracking-widest">Peças que você precisa</label>
                         </div>
-                        <button type="submit" class="w-full bg-refriRed hover:bg-white hover:text-refriBlue text-white font-bold py-5 transition-all uppercase tracking-[0.3em] text-xs">
-                            Enviar Solicitação
+                        <button type="submit" class="w-full bg-navy text-white py-6 font-bold text-xs tracking-[0.3em] hover:bg-vibrantRed transition-all shadow-xl">
+                            ENVIAR SOLICITAÇÃO
                         </button>
                     </form>
                 </div>
 
-                <!-- Mapa e Info -->
-                <div class="bg-slate-100 flex flex-col h-full" data-aos="fade-left">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.025!2d-43.255866!3d-22.864448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9979708b7636b1%3A0x8690f84501309836!2sR.%20Barros%20Barreto%2C%20107%20-%20Bonsucesso%2C%20Rio%20de%20Janeiro%20-%20RJ!5e0!3m2!1spt-BR!2sbr!4v1710000000000" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    <div class="p-10">
-                        <div class="flex items-center gap-4 mb-4">
-                            <i class="fas fa-location-dot text-refriRed"></i>
-                            <span class="font-bold text-xs uppercase text-slate-500">R. Barros Barreto, 107 - Loja AeB - Bonsucesso</span>
+                <div class="flex flex-col gap-6" data-aos="fade-left">
+                    <div class="h-full min-h-[300px] bg-slate-100 overflow-hidden shadow-2xl relative">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.025!2d-43.255866!3d-22.864448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9979708b7636b1%3A0x8690f84501309836!2sR.%20Barros%20Barreto%2C%20107%20-%20Bonsucesso%2C%20Rio%20de%20Janeiro%20-%20RJ!5e0!3m2!1spt-BR!2sbr!4v1710000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="bg-navy p-10 text-white flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-title text-xl mb-4">VISITE A LOJA</h4>
+                            <p class="text-sm opacity-60 leading-relaxed">R. Barros Barreto, 107 - Loja AeB<br>Bonsucesso, Rio de Janeiro - RJ</p>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <i class="fas fa-clock text-refriRed"></i>
-                            <span class="font-bold text-xs uppercase text-slate-500">Seg. a Sex. das 08:00 às 18:00</span>
+                        <div class="mt-8 pt-8 border-t border-white/10 flex justify-between items-center">
+                            <span class="text-[10px] font-bold tracking-widest uppercase opacity-40">Aberto das 08:00 às 18:00</span>
+                            <i class="fas fa-arrow-right text-vibrantRed"></i>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 bg-white border-t border-slate-100">
+    <footer class="py-16 bg-white border-t border-slate-100">
         <div class="container mx-auto px-6 text-center">
-            <div class="flex flex-col items-center gap-4">
-                <div class="flex flex-col">
-                    <span class="font-impact text-2xl text-refriBlue leading-none">BARROS BARRETO</span>
-                    <span class="font-bold text-[8px] text-refriRed tracking-[0.3em] uppercase">Refrigeração</span>
-                </div>
-                <p class="text-slate-400 text-[10px] uppercase font-bold tracking-[0.4em] mt-4">
-                    Desenvolvido por 
-                    <a href="https://csstudios.vercel.app/" target="_blank" class="text-refriBlue hover:text-refriRed transition underline">CS studios</a>
-                </p>
+            <div class="font-title text-2xl mb-8 tracking-tighter">BARROS BARRETO</div>
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.5em] mb-12">
+                Desenvolvido por 
+                <a href="https://csstudios.vercel.app/" target="_blank" class="text-navy hover:text-vibrantRed transition underline">CS studios</a>
+            </p>
+            <div class="flex justify-center gap-6 text-navy/20">
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-whatsapp"></i>
+                <i class="fas fa-envelope"></i>
             </div>
         </div>
     </footer>
@@ -274,20 +272,9 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 800,
+            duration: 1000,
             once: true,
-            offset: 100,
-            easing: 'ease-out-back'
-        });
-
-        // Navbar Shadow
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if(window.scrollY > 50) {
-                nav.classList.add('shadow-xl');
-            } else {
-                nav.classList.remove('shadow-xl');
-            }
+            offset: 100
         });
     </script>
 </body>
